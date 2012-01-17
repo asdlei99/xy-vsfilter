@@ -41,7 +41,7 @@ extern "C" struct csri_vsfilter_inst {
 };
 typedef struct csri_vsfilter_inst csri_inst;
 #include "csri.h"
-static csri_rend csri_vsfilter = "vsfilter";
+static csri_rend csri_vsfilter = "xy-vsfilter";
 
 
 CSRIAPI csri_inst *csri_open_file(csri_rend *renderer, const char *filename, struct csri_openflag *flags)
@@ -167,10 +167,10 @@ CSRIAPI void *csri_query_ext(csri_rend *rend, csri_ext_id extname)
 // Get info for renderer
 static struct csri_info csri_vsfilter_info = {
 #ifdef _DEBUG
-	"vsfilter_textsub_debug", // name
+	"xy_vsfilter_textsub_debug", // name
 	"2.39", // version (assumed version number, svn revision, patchlevel)
 #else
-	"vsfilter_textsub", // name
+	"xy_vsfilter_textsub", // name
 	"2.39", // version (assumed version number, svn revision, patchlevel)
 #endif
 	// 2.38-0611 is base svn 611
