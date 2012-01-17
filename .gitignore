@@ -1,0 +1,16 @@
+*.lib
+*.ncb
+*.suo
+*.user
+*.sdf
+*.vsp
+*.opensdf
+*.obj
+*.ilk
+*.dll
+Debug Unicode
+Debug Unicode lib
+Release Unicode
+Release Unicode lib
+Release Unicode log
+src/filters/BaseClasses/BaseClasses_2010/*.asm
