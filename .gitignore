@@ -1,12 +1,24 @@
 *.aps
 *.db
+*.dll
+*.ilk
+*.lib
+*.ncb
+*.obj
 *.old
 *.opensdf
 *.sdf
 *.suo
 *.user
+*.vsp
 *.vspx
 /.git-rewrite
 /bin
-ipch
 /src/filters/BaseClasses/*.asm
+Debug Unicode
+Debug Unicode lib
+Release Unicode
+Release Unicode lib
+Release Unicode log
+ipch
+src/filters/BaseClasses/BaseClasses_2010/*.asm
