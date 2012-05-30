@@ -39,7 +39,7 @@
     <ClCompile Include="STS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SubtitleInputPin.cpp">
+    <ClCompile Include="TextFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="USFSubtitles.cpp">

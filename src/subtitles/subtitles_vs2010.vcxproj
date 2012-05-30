@@ -213,7 +213,6 @@
     </ClCompile>
     <ClCompile Include="subpixel_position_controler.cpp">
     </ClCompile>
-    <ClCompile Include="SubtitleInputPin.cpp" />
     <ClCompile Include="TextFile.cpp" />
     <ClCompile Include="USFSubtitles.cpp" />
     <ClCompile Include="VobSubFile.cpp">

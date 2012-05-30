@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -215,9 +215,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\VSFilter.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\..\..\..\thirdparty\mfc\afxctrlcontainer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)'=='Debug'">true</ExcludedFromBuild>
     </ClCompile>
@@ -227,19 +224,7 @@
     <ClCompile Include="..\..\..\..\thirdparty\mfc\winmdi.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\Copy.cpp">
-    </ClCompile>
     <ClCompile Include="..\csriapi.cpp" />
-    <ClCompile Include="..\DirectVobSub.cpp" />
-    <ClCompile Include="..\DirectVobSubFilter.cpp" />
-    <ClCompile Include="..\DirectVobSubPropPage.cpp" />
-    <ClCompile Include="..\once_logger.cpp">
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="..\plugins.cpp" />
-    <ClCompile Include="..\StdAfx.cpp">
-      <PrecompiledHeader>Create</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="..\StyleEditorDialog.cpp" />
     <ClCompile Include="..\Systray.cpp" />
     <ClCompile Include="..\TextInputPin.cpp" />
@@ -250,27 +235,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\CAutoTiming.h" />
     <ClInclude Include="..\csri.h" />
-    <ClInclude Include="..\DirectVobSub.h" />
-    <ClInclude Include="..\DirectVobSubFilter.h" />
-    <ClInclude Include="..\DirectVobSubPropPage.h" />
-    <ClInclude Include="..\IDirectVobSub.h" />
-    <ClInclude Include="..\IDirectVobSubXy.h" />
-    <ClInclude Include="..\once_logger.h" />
     <ClInclude Include="..\resource.h" />
     <ClInclude Include="..\StdAfx.h" />
-    <ClInclude Include="..\StyleEditorDialog.h" />
-    <ClInclude Include="..\Systray.h" />
-    <ClInclude Include="..\TextInputPin.h" />
-    <ClInclude Include="..\Timing_Logger.h" />
-    <ClInclude Include="..\version.h" />
-    <ClInclude Include="..\vfr.h" />
-    <ClInclude Include="..\VSFilter.h" />
-    <ClInclude Include="..\xy_logger.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\res\Icon_147.ico" />
     <None Include="..\VSFilter.def" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
