@@ -2010,28 +2010,10 @@ bool CSimpleTextSubtitle::Open(CTextFile* f, int CharSet, CString name)
 
     for(int i = 0; i < nOpenFuncts; i++)
     {
-         const TCHAR* func_name[]={
-             TEXT("OpenSubStationAlpha"),
-             TEXT("OpenSubRipper"),
-             TEXT("OpenOldSubRipper"),
-             TEXT("OpenSubViewer"),
-             TEXT("OpenMicroDVD"),
-             TEXT("OpenSami"),
-             TEXT("OpenVPlayer"),
-             TEXT("OpenXombieSub"),
-             TEXT("OpenUSF"),
-             TEXT("OpenMPL2"),
-             TEXT("OpenRealText")};
-         CAutoTiming t(func_name[i],0);
-
         if(!OpenFuncts[i].open(f, *this, CharSet) /*|| !GetCount()*/)
         {
             if(m_entries.GetCount() > 0)
             {
-                int n = CountLines(f, pos, f->GetPosition());
-                CString s;
-                s.Format(_T("Syntax error at line %d!\t"), n+1);
-                AfxMessageBox(s, MB_OK|MB_ICONERROR);
                 Empty();
                 break;
             }
