@@ -980,38 +980,6 @@ void WINAPI DbgSetWaitTimeout(DWORD dwTimeout)
 
 #endif /* DEBUG */
 
-#ifdef _OBJBASE_H_
-
-    /*  Stuff for printing out our GUID names */
-
-    GUID_STRING_ENTRY g_GuidNames[] = {
-    #define OUR_GUID_ENTRY(name, l, w1, w2, b1, b2, b3, b4, b5, b6, b7, b8) \
-    { #name, { l, w1, w2, { b1, b2,  b3,  b4,  b5,  b6,  b7,  b8 } } },
-        #include <uuids.h>
-    };
-
-    CGuidNameList GuidNames;
-    int g_cGuidNames = sizeof(g_GuidNames) / sizeof(g_GuidNames[0]);
-
-    char *CGuidNameList::operator [] (const GUID &guid)
-    {
-        for (int i = 0; i < g_cGuidNames; i++) {
-            if (g_GuidNames[i].guid == guid) {
-                return g_GuidNames[i].szName;
-            }
-        }
-        if (guid == GUID_NULL) {
-            return "GUID_NULL";
-        }
-
-	// !!! add something to print FOURCC guids?
-	
-	// shouldn't this print the hex CLSID?
-        return "Unknown GUID Name";
-    }
-
-#endif /* _OBJBASE_H_ */
-
 /*  CDisp class - display our data types */
 
 // clashes with REFERENCE_TIME
@@ -1105,13 +1073,6 @@ CDisp::CDisp(IPin *pPin)
     } else {
        lstrcpy(str, TEXT("NULL IPin"));
     }
-
-    m_pString = (PTCHAR) new TCHAR[lstrlen(str)+64];
-    if (!m_pString) {
-	return;
-    }
-
-    wsprintf(m_pString, TEXT("%hs(%s)"), GuidNames[clsid], str);
 }
 
 /*  Display filter or pin */
@@ -1180,95 +1141,6 @@ CDisp::CDisp(double d)
 #ifdef DEBUG
 void WINAPI DisplayType(LPTSTR label, const AM_MEDIA_TYPE *pmtIn)
 {
-
-    /* Dump the GUID types and a short description */
-
-    DbgLog((LOG_TRACE,5,TEXT("")));
-    DbgLog((LOG_TRACE,2,TEXT("%s  M type %hs  S type %hs"), label,
-	    GuidNames[pmtIn->majortype],
-	    GuidNames[pmtIn->subtype]));
-    DbgLog((LOG_TRACE,5,TEXT("Subtype description %s"),GetSubtypeName(&pmtIn->subtype)));
-
-    /* Dump the generic media types */
-
-    if (pmtIn->bTemporalCompression) {
-	DbgLog((LOG_TRACE,5,TEXT("Temporally compressed")));
-    } else {
-	DbgLog((LOG_TRACE,5,TEXT("Not temporally compressed")));
-    }
-
-    if (pmtIn->bFixedSizeSamples) {
-	DbgLog((LOG_TRACE,5,TEXT("Sample size %d"),pmtIn->lSampleSize));
-    } else {
-	DbgLog((LOG_TRACE,5,TEXT("Variable size samples")));
-    }
-
-    if (pmtIn->formattype == FORMAT_VideoInfo) {
-	/* Dump the contents of the BITMAPINFOHEADER structure */
-	BITMAPINFOHEADER *pbmi = HEADER(pmtIn->pbFormat);
-	VIDEOINFOHEADER *pVideoInfo = (VIDEOINFOHEADER *)pmtIn->pbFormat;
-
-	DbgLog((LOG_TRACE,5,TEXT("Source rectangle (Left %d Top %d Right %d Bottom %d)"),
-	       pVideoInfo->rcSource.left,
-	       pVideoInfo->rcSource.top,
-	       pVideoInfo->rcSource.right,
-	       pVideoInfo->rcSource.bottom));
-
-	DbgLog((LOG_TRACE,5,TEXT("Target rectangle (Left %d Top %d Right %d Bottom %d)"),
-	       pVideoInfo->rcTarget.left,
-	       pVideoInfo->rcTarget.top,
-	       pVideoInfo->rcTarget.right,
-	       pVideoInfo->rcTarget.bottom));
-
-	DbgLog((LOG_TRACE,5,TEXT("Size of BITMAPINFO structure %d"),pbmi->biSize));
-	if (pbmi->biCompression < 256) {
-	    DbgLog((LOG_TRACE,2,TEXT("%dx%dx%d bit  (%d)"),
-		    pbmi->biWidth, pbmi->biHeight,
-		    pbmi->biBitCount, pbmi->biCompression));
-	} else {
-	    DbgLog((LOG_TRACE,2,TEXT("%dx%dx%d bit '%4.4hs'"),
-		    pbmi->biWidth, pbmi->biHeight,
-		    pbmi->biBitCount, &pbmi->biCompression));
-	}
-
-	DbgLog((LOG_TRACE,2,TEXT("Image size %d"),pbmi->biSizeImage));
-	DbgLog((LOG_TRACE,5,TEXT("Planes %d"),pbmi->biPlanes));
-	DbgLog((LOG_TRACE,5,TEXT("X Pels per metre %d"),pbmi->biXPelsPerMeter));
-	DbgLog((LOG_TRACE,5,TEXT("Y Pels per metre %d"),pbmi->biYPelsPerMeter));
-	DbgLog((LOG_TRACE,5,TEXT("Colours used %d"),pbmi->biClrUsed));
-
-    } else if (pmtIn->majortype == MEDIATYPE_Audio) {
-	DbgLog((LOG_TRACE,2,TEXT("     Format type %hs"),
-	    GuidNames[pmtIn->formattype]));
-	DbgLog((LOG_TRACE,2,TEXT("     Subtype %hs"),
-	    GuidNames[pmtIn->subtype]));
-
-	if ((pmtIn->subtype != MEDIASUBTYPE_MPEG1Packet)
-	  && (pmtIn->cbFormat >= sizeof(PCMWAVEFORMAT)))
-	{
-	    /* Dump the contents of the WAVEFORMATEX type-specific format structure */
-
-	    WAVEFORMATEX *pwfx = (WAVEFORMATEX *) pmtIn->pbFormat;
-            DbgLog((LOG_TRACE,2,TEXT("wFormatTag %u"), pwfx->wFormatTag));
-            DbgLog((LOG_TRACE,2,TEXT("nChannels %u"), pwfx->nChannels));
-            DbgLog((LOG_TRACE,2,TEXT("nSamplesPerSec %lu"), pwfx->nSamplesPerSec));
-            DbgLog((LOG_TRACE,2,TEXT("nAvgBytesPerSec %lu"), pwfx->nAvgBytesPerSec));
-            DbgLog((LOG_TRACE,2,TEXT("nBlockAlign %u"), pwfx->nBlockAlign));
-            DbgLog((LOG_TRACE,2,TEXT("wBitsPerSample %u"), pwfx->wBitsPerSample));
-
-            /* PCM uses a WAVEFORMAT and does not have the extra size field */
-
-            if (pmtIn->cbFormat >= sizeof(WAVEFORMATEX)) {
-                DbgLog((LOG_TRACE,2,TEXT("cbSize %u"), pwfx->cbSize));
-            }
-	} else {
-	}
-
-    } else {
-	DbgLog((LOG_TRACE,2,TEXT("     Format type %hs"),
-	    GuidNames[pmtIn->formattype]));
-	// !!!! should add code to dump wave format, others
-    }
 }
 
 

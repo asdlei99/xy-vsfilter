@@ -1627,14 +1627,6 @@ CBasePin::DisplayPinInfo(IPin *pReceivePin)
 #ifdef DEBUG
 void CBasePin::DisplayTypeInfo(IPin *pPin, const CMediaType *pmt)
 {
-    UNREFERENCED_PARAMETER(pPin);
-    if (DbgCheckModuleLevel(LOG_TRACE, CONNECT_TRACE_LEVEL)) {
-        DbgLog((LOG_TRACE, CONNECT_TRACE_LEVEL, TEXT("Trying media type:")));
-        DbgLog((LOG_TRACE, CONNECT_TRACE_LEVEL, TEXT("    major type:  %hs"),
-               GuidNames[*pmt->Type()]));
-        DbgLog((LOG_TRACE, CONNECT_TRACE_LEVEL, TEXT("    sub type  :  %hs"),
-               GuidNames[*pmt->Subtype()]));
-    }
 }
 #endif
 
