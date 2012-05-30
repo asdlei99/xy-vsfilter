@@ -444,14 +444,10 @@ private:
 
     CSubtitle* GetSubtitle(int entry);
 
-protected:
-    virtual void OnChanged();
-    
 public:
     CRenderedTextSubtitle(CCritSec* pLock);
     virtual ~CRenderedTextSubtitle();
 
-    virtual void Copy(CSimpleTextSubtitle& sts);
     virtual void Empty();
 
 public:

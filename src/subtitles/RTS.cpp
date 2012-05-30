@@ -1923,37 +1923,11 @@ void CRenderedTextSubtitle::InitCmdMap()
     }
 }
 
-void CRenderedTextSubtitle::Copy(CSimpleTextSubtitle& sts)
-{
-    __super::Copy(sts);
-    m_size = CSize(0, 0);
-    if(CRenderedTextSubtitle* pRTS = dynamic_cast<CRenderedTextSubtitle*>(&sts))
-    {
-        m_size = pRTS->m_size;
-    }
-}
-
 void CRenderedTextSubtitle::Empty()
 {
     Deinit();
     __super::Empty();
 }
-
-void CRenderedTextSubtitle::OnChanged()
-{
-    __super::OnChanged();
-    POSITION pos = m_subtitleCache.GetStartPosition();
-    while(pos)
-    {
-        int i;
-        CSubtitle* s;
-        m_subtitleCache.GetNextAssoc(pos, i, s);
-        delete s;
-    }
-    m_subtitleCache.RemoveAll();
-    m_sla.Empty();
-}
-
 
 bool CRenderedTextSubtitle::Init( const SIZECoor2& size_scale_to, const SIZE& size1, const CRect& video_rect )
 {
