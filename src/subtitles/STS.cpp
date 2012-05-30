@@ -1136,24 +1136,6 @@ CSimpleTextSubtitle::~CSimpleTextSubtitle()
     Empty();
 }
 
-void CSimpleTextSubtitle::Copy(CSimpleTextSubtitle& sts)
-{
-    Empty();
-
-    m_name                         = sts.m_name;
-    m_mode                         = sts.m_mode;
-    m_dstScreenSize                = sts.m_dstScreenSize;
-    m_defaultWrapStyle             = sts.m_defaultWrapStyle;
-    m_collisions                   = sts.m_collisions;
-    m_fScaledBAS                   = sts.m_fScaledBAS;
-    m_encoding                     = sts.m_encoding;
-    m_defaultStyle                 = sts.m_defaultStyle;
-    m_fForcedDefaultStyle          = sts.m_fForcedDefaultStyle;
-    CopyStyles     (sts.m_styles  );
-    m_segments.Copy(sts.m_segments);
-    m_entries.Copy (sts.m_entries );
-}
-
 void CSTSStyleMap::Free()
 {
     POSITION pos = GetStartPosition();
@@ -1166,28 +1148,6 @@ void CSTSStyleMap::Free()
     }
 
     RemoveAll();
-}
-
-bool CSimpleTextSubtitle::CopyStyles(const CSTSStyleMap& styles, bool fAppend)
-{
-    if(!fAppend) m_styles.Free();
-
-    POSITION pos = styles.GetStartPosition();
-    while(pos)
-    {
-        CString key;
-        STSStyle* val;
-        styles.GetNextAssoc(pos, key, val);
-
-        STSStyle* s = DEBUG_NEW STSStyle;
-        if(!s) return(false);
-
-        *s = *val;
-
-        AddStyle(key, s);
-    }
-
-    return(true);
 }
 
 void CSimpleTextSubtitle::Empty()
@@ -1864,8 +1824,6 @@ void CSimpleTextSubtitle::CreateSegments()
             if(tempSegments[i].subs.GetCount()>0)
                 m_segments.Add(tempSegments[i]);
     }
-    OnChanged();
-    LogSegments(m_segments);
 }
 
 bool CSimpleTextSubtitle::Open(CString fn, int CharSet, CString name)

@@ -162,7 +162,6 @@ class CSimpleTextSubtitle
 protected:
     CAtlArray<STSEntry>   m_entries;
     CAtlArray<STSSegment> m_segments;
-    virtual void OnChanged() {}
 
 public:
     CString        m_name;
@@ -210,8 +209,7 @@ public:
     CSimpleTextSubtitle();
     virtual ~CSimpleTextSubtitle();
 
-    virtual void Copy(CSimpleTextSubtitle& sts);
-    virtual void Empty();
+	virtual void Empty();
 
     bool IsEmpty();
 

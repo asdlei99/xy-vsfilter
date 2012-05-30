@@ -446,14 +446,10 @@ private:
     void ShrinkCache();
 private:
     static std::size_t s_max_cache_size;
-protected:
-    virtual void OnChanged();
-    
 public:
     CRenderedTextSubtitle(CCritSec* pLock);
     virtual ~CRenderedTextSubtitle();
 
-    virtual void Copy(CSimpleTextSubtitle& sts);
     virtual void Empty();
 
 public:
