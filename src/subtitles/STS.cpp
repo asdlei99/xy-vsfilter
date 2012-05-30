@@ -1439,7 +1439,6 @@ STSStyle* CSimpleTextSubtitle::CreateDefaultStyle(int CharSet)
 void CSimpleTextSubtitle::ChangeUnknownStylesToDefault()
 {
     CAtlMap<CString, STSStyle*, CStringElementTraits<CString> > unknown;
-    bool fReport = true;
 
     for(size_t i = 0; i < m_entries.GetCount(); i++)
     {
@@ -1450,13 +1449,6 @@ void CSimpleTextSubtitle::ChangeUnknownStylesToDefault()
         {
             if(!unknown.Lookup(stse.style, val))
             {
-                if(fReport)
-                {
-                    CString msg;
-                    msg.Format(_T("Unknown style found: \"%s\", changed to \"Default\"!\n\nPress Cancel to ignore further warnings."), stse.style);
-                    if(MessageBox(NULL, msg, _T("Warning"), MB_OKCANCEL|MB_ICONWARNING) != IDOK) fReport = false;
-                }
-
                 unknown[stse.style] = NULL;
             }
 
