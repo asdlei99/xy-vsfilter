@@ -2028,11 +2028,6 @@ bool CSimpleTextSubtitle::Open(CTextFile* f, int CharSet, CString name)
         m_encoding = f->GetEncoding();
         m_path = f->GetFilePath();
 
-        CWebTextFile f2(CTextFile::UTF8);
-        if(f2.Open(f->GetFilePath() + _T(".style")))
-            OpenSubStationAlpha(&f2, *this, CharSet);
-
-        //      Sort();
         CreateSegments();
 
         CreateDefaultStyle(CharSet);
