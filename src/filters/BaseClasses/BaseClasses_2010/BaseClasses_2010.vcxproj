@@ -201,7 +201,6 @@
     <ClCompile Include="..\vtrans.cpp" />
     <ClCompile Include="..\winctrl.cpp" />
     <ClCompile Include="..\winutil.cpp" />
-    <ClCompile Include="..\wxdebug.cpp" />
     <ClCompile Include="..\wxlist.cpp" />
     <ClCompile Include="..\wxutil.cpp" />
   </ItemGroup>

@@ -191,9 +191,6 @@
     <ClCompile Include="..\winutil.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\wxdebug.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\wxlist.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
