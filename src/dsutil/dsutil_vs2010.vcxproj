@@ -119,14 +119,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DSMPropertyBag.cpp" />
     <ClCompile Include="DSUtil.cpp" />
     <ClCompile Include="FontInstaller.cpp" />
-    <ClCompile Include="GolombBuffer.cpp" />
-    <ClCompile Include="H264Nalu.cpp" />
-    <ClCompile Include="HdmvClipInfo.cpp" />
-    <ClCompile Include="MediaTypeEx.cpp" />
-    <ClCompile Include="MediaTypes.cpp" />
     <ClCompile Include="NullRenderers.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

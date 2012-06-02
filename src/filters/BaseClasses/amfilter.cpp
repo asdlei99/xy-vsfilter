@@ -935,10 +935,6 @@ CEnumPins::CEnumPins(CBaseFilter *pFilter,
     m_PinCache(NAME("Pin Cache"))
 {
 
-#ifdef DEBUG
-    m_dwCookie = DbgRegisterObjectCreation("CEnumPins", 0);
-#endif
-
     /* We must be owned by a filter derived from CBaseFilter */
 
     ASSERT(pFilter != NULL);
@@ -969,10 +965,6 @@ CEnumPins::CEnumPins(CBaseFilter *pFilter,
 CEnumPins::~CEnumPins()
 {
     m_pFilter->Release();
-
-#ifdef DEBUG
-    DbgRegisterObjectDestruction(m_dwCookie);
-#endif
 }
 
 
@@ -1199,10 +1191,6 @@ CEnumMediaTypes::CEnumMediaTypes(CBasePin *pPin,
     m_cRef(1)
 {
 
-#ifdef DEBUG
-    m_dwCookie = DbgRegisterObjectCreation("CEnumMediaTypes", 0);
-#endif
-
     /* We must be owned by a pin derived from CBasePin */
 
     ASSERT(pPin != NULL);
@@ -1229,9 +1217,6 @@ CEnumMediaTypes::CEnumMediaTypes(CBasePin *pPin,
 
 CEnumMediaTypes::~CEnumMediaTypes()
 {
-#ifdef DEBUG
-    DbgRegisterObjectDestruction(m_dwCookie);
-#endif
     m_pPin->Release();
 }
 
@@ -1628,13 +1613,6 @@ CBasePin::DisplayPinInfo(IPin *pReceivePin)
 void CBasePin::DisplayTypeInfo(IPin *pPin, const CMediaType *pmt)
 {
     UNREFERENCED_PARAMETER(pPin);
-    if (DbgCheckModuleLevel(LOG_TRACE, CONNECT_TRACE_LEVEL)) {
-        DbgLog((LOG_TRACE, CONNECT_TRACE_LEVEL, TEXT("Trying media type:")));
-        DbgLog((LOG_TRACE, CONNECT_TRACE_LEVEL, TEXT("    major type:  %hs"),
-               GuidNames[*pmt->Type()]));
-        DbgLog((LOG_TRACE, CONNECT_TRACE_LEVEL, TEXT("    sub type  :  %hs"),
-               GuidNames[*pmt->Subtype()]));
-    }
 }
 #endif
 

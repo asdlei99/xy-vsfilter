@@ -1237,3 +1237,19 @@ bool TimeKillSynchronousFlagAvailable( void )
 
     return false;
 }
+
+#ifdef DEBUG
+void WINAPI DbgAssert(const TCHAR *pCondition,const TCHAR *pFileName,INT iLine) { }
+void WINAPI DbgBreakPoint(const TCHAR *pCondition,const TCHAR *pFileName,INT iLine) { }
+void WINAPI DbgBreakPoint(const TCHAR *pFileName,INT iLine,const TCHAR* szFormatString,...) { }
+
+void WINAPI DbgKernelAssert(const TCHAR *pCondition,const TCHAR *pFileName,INT iLine) { }
+void WINAPI DbgLogInfo(DWORD Type,DWORD Level,const TCHAR *pFormat,...) { }
+#ifdef UNICODE
+void WINAPI DbgLogInfo(DWORD Type,DWORD Level,const CHAR *pFormat,...) { }
+void WINAPI DbgAssert(const CHAR *pCondition,const CHAR *pFileName,INT iLine) { }
+void WINAPI DbgBreakPoint(const CHAR *pCondition,const CHAR *pFileName,INT iLine) { }
+void WINAPI DbgKernelAssert(const CHAR *pCondition,const CHAR *pFileName,INT iLine) { }
+#endif
+void WINAPI DbgOutString(LPCTSTR psz) { }
+#endif
