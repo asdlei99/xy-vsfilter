@@ -100,14 +100,8 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DSMPropertyBag.cpp" />
     <ClCompile Include="DSUtil.cpp" />
     <ClCompile Include="FontInstaller.cpp" />
-    <ClCompile Include="GolombBuffer.cpp" />
-    <ClCompile Include="H264Nalu.cpp" />
-    <ClCompile Include="HdmvClipInfo.cpp" />
-    <ClCompile Include="MediaTypeEx.cpp" />
-    <ClCompile Include="MediaTypes.cpp" />
     <ClCompile Include="NullRenderers.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -134,6 +128,14 @@
     <ClInclude Include="vd.h" />
     <ClInclude Include="vd_asm.h" />
     <ClInclude Include="xy_utils.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\thirdparty\VirtualDub\Kasumi\Kasumi.vcxproj">
+      <Project>{0d252872-7542-4232-8d02-53f9182aee15}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\thirdparty\VirtualDub\system\system.vcxproj">
+      <Project>{c2082189-3ecb-4079-91fa-89d3c8a305c0}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

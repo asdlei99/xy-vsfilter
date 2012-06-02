@@ -139,10 +139,6 @@
       <AdditionalLibraryDirectories>$(SolutionDir)lib;$(SolutionDir)bin\lib10\$(PlatformName)</AdditionalLibraryDirectories>
       <AdditionalLibraryDirectories Condition="'$(VisualStudioVersion)'=='11.0'">$(SolutionDir)lib;$(SolutionDir)bin\lib11\$(PlatformName)</AdditionalLibraryDirectories>
       <AdditionalLibraryDirectories Condition="'$(VisualStudioVersion)'=='12.0'">$(SolutionDir)lib;$(SolutionDir)bin\lib12\$(PlatformName)</AdditionalLibraryDirectories>
-      <AdditionalDependencies Condition="'$(Configuration)'=='Debug'">strmbaseD.lib;dsutilD.lib;subtitlesD.lib;subpicD.lib;basevideofilterD.lib;libssfD.lib;log4cplus_staticD.lib;KasumiD.lib;systemD.lib;unrarD.lib</AdditionalDependencies>
-      <AdditionalDependencies Condition="'$(Configuration)|$(VisualStudioVersion)'=='Debug|11.0' Or '$(Configuration)|$(VisualStudioVersion)'=='Debug|12.0'">strmbaseD.lib;dsutilD.lib;subtitlesD.lib;subpicD.lib;basevideofilterD.lib;libssfD.lib;log4cplus_staticD.lib;KasumiD.lib;systemD.lib;unrarD.lib;dwmapi.lib</AdditionalDependencies>
-      <AdditionalDependencies Condition="'$(Configuration)'=='Release'">delayimp.lib;strmbaseR.lib;dsutilR.lib;subtitlesR.lib;subpicR.lib;basevideofilterR.lib;libssfR.lib;log4cplus_staticR.lib;KasumiR.lib;systemR.lib;unrarR.lib;winmm.lib</AdditionalDependencies>
-      <AdditionalDependencies Condition="'$(Configuration)|$(VisualStudioVersion)'=='Release|11.0' Or '$(Configuration)|$(VisualStudioVersion)'=='Release|12.0'">delayimp.lib;strmbaseR.lib;dsutilR.lib;subtitlesR.lib;subpicR.lib;basevideofilterR.lib;libssfR.lib;log4cplus_staticR.lib;KasumiR.lib;systemR.lib;unrarR.lib;winmm.lib;dwmapi.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup>
@@ -191,6 +187,20 @@
     <ClInclude Include="XyOptionsImpl.h" />
     <ClInclude Include="XySubRenderIntf.h" />
     <ClInclude Include="xy_logger.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\dsutil\dsutil.vcxproj">
+      <Project>{fc70988b-1ae5-4381-866d-4f405e28ac42}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\subpic\subpic.vcxproj">
+      <Project>{d514ea4d-eafb-47a9-a437-a582ca571251}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\subtitles\subtitles.vcxproj">
+      <Project>{5e56335f-0fb1-4eea-b240-d8dc5e0608e4}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BaseClasses\BaseClasses.vcxproj">
+      <Project>{f558e2b6-62cf-4d1d-a6ea-448d159e5675}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -23,16 +23,6 @@ CBaseObject::CBaseObject(const TCHAR *pName)
 {
     /* Increment the number of active objects */
     InterlockedIncrement(&m_cObjects);
-
-#ifdef DEBUG
-
-#ifdef UNICODE
-    m_dwCookie = DbgRegisterObjectCreation(0, pName);
-#else
-    m_dwCookie = DbgRegisterObjectCreation(pName, 0);
-#endif
-
-#endif
 }
 
 #ifdef UNICODE
@@ -40,10 +30,6 @@ CBaseObject::CBaseObject(const char *pName)
 {
     /* Increment the number of active objects */
     InterlockedIncrement(&m_cObjects);
-
-#ifdef DEBUG
-    m_dwCookie = DbgRegisterObjectCreation(pName, 0);
-#endif
 }
 #endif
 
@@ -61,11 +47,6 @@ CBaseObject::~CBaseObject()
 	    hlibOLEAut32 = 0;
 	}
     };
-
-
-#ifdef DEBUG
-    DbgRegisterObjectDestruction(m_dwCookie);
-#endif
 }
 
 static const TCHAR szOle32Aut[]   = TEXT("OleAut32.dll");
@@ -164,8 +145,6 @@ STDMETHODIMP_(ULONG) CUnknown::NonDelegatingAddRef()
 {
     LONG lRef = InterlockedIncrement( &m_cRef );
     ASSERT(lRef > 0);
-    DbgLog((LOG_MEMORY,3,TEXT("    Obj %d ref++ = %d"),
-           m_dwCookie, m_cRef));
     return ourmax(ULONG(m_cRef), 1ul);
 }
 
@@ -179,8 +158,6 @@ STDMETHODIMP_(ULONG) CUnknown::NonDelegatingRelease()
     LONG lRef = InterlockedDecrement( &m_cRef );
     ASSERT(lRef >= 0);
 
-    DbgLog((LOG_MEMORY,3,TEXT("    Object %d ref-- = %d"),
-	    m_dwCookie, m_cRef));
     if (lRef == 0) {
 
         // COM rules say we must protect against re-entrancy.
