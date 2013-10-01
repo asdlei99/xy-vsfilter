@@ -233,13 +233,13 @@ public:
     static SharedPtrByte CompositeAlphaMask(const SharedPtrOverlay& overlay, const CRect& clipRect, 
         const GrayImage2* alpha_mask, 
         int xsub, int ysub, const DWORD* switchpts, bool fBody, bool fBorder, 
-        CRect *outputDirtyRect);
+        CRect *outputDirtyRect, unsigned int* ret_val);
 
-    static void Draw(XyBitmap* bitmap, 
-        SharedPtrOverlay overlay, 
-        const CRect& clipRect, 
-        byte* s_base, 
-        int xsub, int ysub, 
+    static void Draw(XyBitmap* bitmap,
+        SharedPtrOverlay overlay,
+        const CRect& clipRect,
+        byte* s_base,
+        int xsub, int ysub,
         const DWORD* switchpts, bool fBody, bool fBorder);
 
     static void FillSolidRect(SubPicDesc& spd, int x, int y, int nWidth, int nHeight, DWORD lColor);

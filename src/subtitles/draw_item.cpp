@@ -62,9 +62,15 @@ CRectCoor2 DrawItem::AlphaBltDraw( XyBitmap* bitmap, DrawItem& draw_item, const 
     ASSERT(draw_item.overlay_paint_machine);
     draw_item.overlay_paint_machine->Paint(&overlay);
 
+    unsigned int ret_val = 0;
+
     const SharedPtrByte& alpha = Rasterizer::CompositeAlphaMask(overlay, draw_item.clip_rect & clip_rect, alpha_mask.get(),
         draw_item.xsub, draw_item.ysub, draw_item.switchpts, draw_item.fBody, draw_item.fBorder,
-        &result);
+        &result, &ret_val);
+    if (ret_val) {
+        TRACE(_T("Error in DrawItem::Draw: alpha memory allocation failed!"));
+        return nullptr;
+    }
 
     Rasterizer::Draw(bitmap, overlay, result, alpha.get(),
         draw_item.xsub, draw_item.ysub, draw_item.switchpts, draw_item.fBody, draw_item.fBorder);
@@ -82,9 +88,15 @@ CRectCoor2 DrawItem::AdditionDraw( XyBitmap *bitmap, DrawItem& draw_item, const 
     ASSERT(draw_item.overlay_paint_machine);
     draw_item.overlay_paint_machine->Paint(&overlay);
 
+    unsigned int ret_val = 0;
+
     const SharedPtrByte& alpha = Rasterizer::CompositeAlphaMask(overlay, draw_item.clip_rect & clip_rect, alpha_mask.get(),
         draw_item.xsub, draw_item.ysub, draw_item.switchpts, draw_item.fBody, draw_item.fBorder,
-        &result);
+        &result, &ret_val);
+    if (ret_val) {
+        TRACE(_T("Error in DrawItem::Draw: alpha memory allocation failed!"));
+        return nullptr;
+    }
 
     Rasterizer::AdditionDraw(bitmap, overlay, result, alpha.get(),
         draw_item.xsub, draw_item.ysub, draw_item.switchpts, draw_item.fBody, draw_item.fBorder);
