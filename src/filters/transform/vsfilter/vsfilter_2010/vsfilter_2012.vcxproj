@@ -230,6 +230,7 @@
   <ItemDefinitionGroup>
     <Link>
       <RegisterOutput>false</RegisterOutput>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <ClCompile>
       <RuntimeLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MultiThreadedDLL</RuntimeLibrary>
