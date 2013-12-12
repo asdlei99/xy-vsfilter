@@ -1145,9 +1145,11 @@ void WINAPI DisplayType(LPTSTR label, const AM_MEDIA_TYPE *pmtIn)
     /* Dump the GUID types and a short description */
 
     DbgLog((LOG_TRACE,5,TEXT("")));
+#if 0
     DbgLog((LOG_TRACE,2,TEXT("%s  M type %hs  S type %hs"), label,
 	    GuidNames[pmtIn->majortype],
 	    GuidNames[pmtIn->subtype]));
+#endif
     DbgLog((LOG_TRACE,5,TEXT("Subtype description %s"),GetSubtypeName(&pmtIn->subtype)));
 
     /* Dump the generic media types */
@@ -1199,10 +1201,12 @@ void WINAPI DisplayType(LPTSTR label, const AM_MEDIA_TYPE *pmtIn)
 	DbgLog((LOG_TRACE,5,TEXT("Colours used %d"),pbmi->biClrUsed));
 
     } else if (pmtIn->majortype == MEDIATYPE_Audio) {
+#if 0
 	DbgLog((LOG_TRACE,2,TEXT("     Format type %hs"),
 	    GuidNames[pmtIn->formattype]));
 	DbgLog((LOG_TRACE,2,TEXT("     Subtype %hs"),
 	    GuidNames[pmtIn->subtype]));
+#endif
 
 	if ((pmtIn->subtype != MEDIASUBTYPE_MPEG1Packet)
 	  && (pmtIn->cbFormat >= sizeof(PCMWAVEFORMAT)))
@@ -1226,8 +1230,10 @@ void WINAPI DisplayType(LPTSTR label, const AM_MEDIA_TYPE *pmtIn)
 	}
 
     } else {
+#if 0
 	DbgLog((LOG_TRACE,2,TEXT("     Format type %hs"),
 	    GuidNames[pmtIn->formattype]));
+#endif
 	// !!!! should add code to dump wave format, others
     }
 }
