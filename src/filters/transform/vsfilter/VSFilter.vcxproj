@@ -43,7 +43,9 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <TargetExt>.dll</TargetExt>
-    <TargetName>VSFilter</TargetName>
+    <TargetName>xy-vsfilter-aegisub</TargetName>
+    <TargetName Condition="'$(Platform)'=='Win32'">xy-vsfilter-aegisub32</TargetName>
+    <TargetName Condition="'$(Platform)'=='x64'">xy-vsfilter-aegisub64</TargetName>
     <IncludePath>$(SolutionDir)src\filters\BaseClasses;$(SolutionDir)src\thirdparty\boost_lib\;$(SolutionDir)src\thirdparty\log4cplus\include\;$(SolutionDir)src\thirdparty\VirtualDub\h\;$(SolutionDir)include\;$(IncludePath)</IncludePath>
     <OutDir>$(SolutionDir)bin\lib10\$(PlatformName)\$(Configuration)\</OutDir>
     <OutDir Condition="'$(VisualStudioVersion)'=='11.0'">$(SolutionDir)bin\lib11\$(PlatformName)\$(Configuration)\</OutDir>
