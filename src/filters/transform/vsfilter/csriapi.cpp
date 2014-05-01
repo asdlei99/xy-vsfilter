@@ -70,7 +70,12 @@ CSRIAPI csri_inst *csri_open_file(csri_rend *renderer, const char *filename, str
 
 CSRIAPI csri_inst *csri_open_mem(csri_rend *renderer, const void *data, size_t length, struct csri_openflag *flags)
 {
-	return 0;
+	csri_inst *inst = new csri_inst;
+	if (!inst->rts.Open(data, length)) {
+		delete inst;
+		inst = 0;
+	}
+	return inst;
 }
 
 CSRIAPI void csri_close(csri_inst *inst)

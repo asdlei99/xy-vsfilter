@@ -129,7 +129,7 @@ HRESULT CSubtitleInputPin::CompleteConnect(IPin* pReceivePin)
 					mt.pbFormat[dwOffset+2] = 0xbf;
 				}
 
-                pRTS->Open(mt.pbFormat + dwOffset, mt.cbFormat - dwOffset, DEFAULT_CHARSET, pRTS->m_name);
+                pRTS->Open(mt.pbFormat + dwOffset, mt.cbFormat - dwOffset);
 			}
 
 		}
@@ -308,7 +308,7 @@ STDMETHODIMP CSubtitleInputPin::Receive(IMediaSample* pSample)
 				}
 				else if(tag == __GAB1_RAWTEXTSUBTITLE__)
 				{
-					pRTS->Open((BYTE*)ptr, size, DEFAULT_CHARSET, pRTS->m_name);
+					pRTS->Open((BYTE*)ptr, size);
 					fInvalidate = true;
 				}
 

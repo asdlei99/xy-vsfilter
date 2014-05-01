@@ -24,37 +24,30 @@
 #include <afx.h>
 #include <vector>
 
-class CTextFile : protected CStdioFile
-{
+class CTextFile {
+	std::vector<wchar_t> outbuf;
+	const char *data = nullptr;
+	size_t size = 0;
+	size_t pos = 0;
+
 public:
 	enum enc {ASCII, UTF8, LE16, BE16};
 
-private:
-	unsigned char m_readbuffer[4096];
-	size_t m_bufferPos;
-	size_t m_bufferCount;
-	std::vector<wchar_t> m_convertedBuffer;
-
-	enum charerror {CHARERR_NEED_MORE=-1, CHARERR_REOPEN=-2};
-
-	int NextChar();
-	bool ReadLine();
-
-public:
 	CTextFile(enc e = ASCII);
-	using CStdioFile::Seek;
 
-	virtual bool Open(LPCTSTR lpszFileName);
-	virtual bool Save(LPCTSTR lpszFileName, enc e /*= ASCII*/);
+	void OpenMem(const char *data, size_t len);
+
+	bool Open(LPCTSTR lpszFileName);
+	bool Save(LPCTSTR lpszFileName, enc e /*= ASCII*/) { return false; }
 
 	void SetEncoding(enc) { }
 	enc GetEncoding() { return UTF8; }
 	bool IsUnicode() { return true; }
 
-	CString GetFilePath() const;
-    ULONGLONG GetPosition() const;
+	CString GetFilePath() const { return L""; }
+	ULONGLONG GetPosition() const { return pos; }
 
-	void WriteString(LPCWSTR lpsz/*CStringW str*/);
+	void WriteString(LPCWSTR lpsz/*CStringW str*/) { }
 	BOOL ReadString(CStringW& str);
 };
 

@@ -215,12 +215,9 @@ public:
     void RemoveAllEntries();
 	void CreateSegments();    
 
-	void Append(CSimpleTextSubtitle& sts, int timeoff = -1);
-
-	bool Open(CString fn, int CharSet, CString name = _T(""));
-	bool Open(CTextFile* f, int CharSet, CString name);
-	bool Open(BYTE* data, int len, int CharSet, CString name);
-	bool SaveAs(CString fn, exttype et, double fps = -1, CTextFile::enc = CTextFile::ASCII);
+    bool Open(CTextFile* f            , int CharSet, CString name);
+    bool Open(const void *data, int len);
+    bool SaveAs(CString fn, exttype et, double fps = -1, CTextFile::enc = CTextFile::ASCII);
    
 	void Add(CStringW str, bool fUnicode, int start, int end, CString style = CString(_T("Default")), 
         const CString& actor = CString(_T("")), 

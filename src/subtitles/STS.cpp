@@ -685,15 +685,9 @@ static bool OpenSubStationAlpha(CTextFile* file, CSimpleTextSubtitle& ret, int C
     CStringW buff;
     while(file->ReadString(buff))
     {
-        buff.Trim();
         if(buff.IsEmpty() || buff.GetAt(0) == ';') continue;
 
-        CStringW entry;
-
-//      try {
-            entry = GetStr(buff, ':');
-//  }
-//      catch(...) {continue;}
+        CStringW entry = GetStr(buff, ':');
 
         entry.MakeLower();
 
@@ -1869,53 +1863,19 @@ void CSimpleTextSubtitle::CreateSegments()
 */
 }
 
-bool CSimpleTextSubtitle::Open(CString fn, int CharSet, CString name)
-{
-    Empty();
-
-    CWebTextFile f(CTextFile::UTF8);
-    if(!f.Open(fn)) return(false);
-
-    fn.Replace('\\', '/');
-    if(name.IsEmpty())
-    {
-        name = fn.Left(fn.ReverseFind('.'));
-        name = name.Mid(name.ReverseFind('/')+1);
-        name = name.Mid(name.ReverseFind('.')+1);
-    }
-
-    return(Open(&f, CharSet, name));
-}
-
 static int CountLines(CTextFile* f, ULONGLONG from, ULONGLONG to)
 {
-    int n = 0;
-    CString s;
-    f->Seek(from, 0);
-    while(f->ReadString(s) && f->GetPosition() < to) n++;
-    return(n);
+	return 0;
 }
 
 bool CSimpleTextSubtitle::Open(CTextFile* f, int CharSet, CString name)
 {
     Empty();
 
-    ULONGLONG pos = f->GetPosition();
-
     for(int i = 0; i < nOpenFuncts; i++)
     {
-        if(!OpenFuncts[i].open(f, *this, CharSet) /*|| !GetCount()*/)
-        {
-            if(m_entries.GetCount() > 0)
-            {
-                Empty();
-                break;
-            }
-
-            f->Seek(pos, 0);
-            Empty();
-            continue;
-        }
+		if (!OpenFuncts[i].open(f, *this, CharSet) /*|| !GetCount()*/)
+			return false;
 
         m_name = name;
         m_mode = OpenFuncts[i].mode;
@@ -1936,28 +1896,11 @@ bool CSimpleTextSubtitle::Open(CTextFile* f, int CharSet, CString name)
     return(false);
 }
 
-bool CSimpleTextSubtitle::Open(BYTE* data, int len, int CharSet, CString name)
+bool CSimpleTextSubtitle::Open(const void *data, int len)
 {
-    TCHAR path[MAX_PATH];
-    if(!GetTempPath(MAX_PATH, path)) return(false);
-
-    TCHAR fn[MAX_PATH];
-    if(!GetTempFileName(path, _T("vs"), 0, fn)) return(false);
-
-    FILE* tmp = _tfopen(fn, _T("wb"));
-    if(!tmp) return(false);
-
-    int i = 0;
-    for(; i <= (len-1024); i += 1024) fwrite(&data[i], 1024, 1, tmp);
-    if(len > i) fwrite(&data[i], len - i, 1, tmp);
-
-    fclose(tmp);
-
-    bool fRet = Open(fn, CharSet, name);
-
-    _tremove(fn);
-
-    return(fRet);
+	CTextFile file;
+	file.OpenMem((const char *)data, len);
+	return Open(&file, CTextFile::UTF8, L"");
 }
 
 bool CSimpleTextSubtitle::SaveAs(CString fn, exttype et, double fps, CTextFile::enc e)
