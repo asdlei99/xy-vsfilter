@@ -1298,8 +1298,6 @@ void CSimpleTextSubtitle::AddSTSEntryOnly( CStringW str, bool fUnicode, int star
 	}
 	if (all_whitespace) return;
 
-    str.Remove('\r');
-    str.Replace(L"\n", L"\\N");
     if(style.IsEmpty()) style = _T("Default");
     style.TrimLeft('*');
 
