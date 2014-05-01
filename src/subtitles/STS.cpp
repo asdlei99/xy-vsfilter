@@ -34,7 +34,7 @@
 
 // gathered from http://www.netwave.or.jp/~shikai/shikai/shcolor.htm
 
-struct htmlcolor {TCHAR* name; DWORD color;} hmtlcolors[] =
+static struct htmlcolor {TCHAR* name; DWORD color;} hmtlcolors[] =
 {
     {_T("white"), 0xffffff},
     {_T("whitesmoke"), 0xf5f5f5},
@@ -270,7 +270,7 @@ static DWORD CharSetToCodePage(DWORD dwCharSet)
     return cs.ciACP;
 }
 
-int FindChar(CStringW str, WCHAR c, int pos, bool fUnicode, int CharSet)
+static int FindChar(CStringW str, WCHAR c, int pos, bool fUnicode, int CharSet)
 {
     if(fUnicode) return(str.Find(c, pos));
 
@@ -466,7 +466,7 @@ static CStringW MBCSSSAToUnicode(CStringW str, int CharSet)
     return(ret);
 }
 
-CStringW RemoveSSATags(CStringW str, bool fUnicode, int CharSet)
+static CStringW RemoveSSATags(CStringW str, bool fUnicode, int CharSet)
 {
     str.Replace (L"{\\i1}", L"<i>");
     str.Replace (L"{\\i}", L"</i>");
@@ -485,7 +485,7 @@ CStringW RemoveSSATags(CStringW str, bool fUnicode, int CharSet)
     return(str);
 }
 
-inline CStringW GetStr(CStringW& buff, char sep = ',') //throw(...)
+static inline CStringW GetStr(CStringW& buff, char sep = ',') //throw(...)
 {
     buff.TrimLeft();
 
@@ -502,7 +502,7 @@ inline CStringW GetStr(CStringW& buff, char sep = ',') //throw(...)
     return(ret);
 }
 
-inline int GetInt(CStringW& buff, char sep = ',') //throw(...)
+static inline int GetInt(CStringW& buff, char sep = ',') //throw(...)
 {
     CStringW str;
 
@@ -519,7 +519,7 @@ inline int GetInt(CStringW& buff, char sep = ',') //throw(...)
     return(ret);
 }
 
-inline double GetFloat(CStringW& buff, char sep = ',') //throw(...)
+static inline double GetFloat(CStringW& buff, char sep = ',') //throw(...)
 {
     CStringW str;
 
@@ -532,7 +532,7 @@ inline double GetFloat(CStringW& buff, char sep = ',') //throw(...)
     return((double)ret);
 }
 
-inline CStringW::PCXSTR TryNextStr(CStringW::PXSTR * buff, WCHAR sep = WCHAR(','))
+static inline CStringW::PCXSTR TryNextStr(CStringW::PXSTR * buff, WCHAR sep = WCHAR(','))
 {
     CStringW::PXSTR start = NULL;
     CStringW::PXSTR ret = NULL;
@@ -551,7 +551,7 @@ inline CStringW::PCXSTR TryNextStr(CStringW::PXSTR * buff, WCHAR sep = WCHAR(','
     return(ret);
 }
 
-inline int NextInt(CStringW::PXSTR * buff, WCHAR sep = WCHAR(',')) //throw(...)
+static inline int NextInt(CStringW::PXSTR * buff, WCHAR sep = WCHAR(',')) //throw(...)
 {
     CStringW str = TryNextStr(buff, sep);
 
@@ -571,7 +571,7 @@ inline int NextInt(CStringW::PXSTR * buff, WCHAR sep = WCHAR(',')) //throw(...)
     return(ret);
 }
 
-inline double NextFloat(CStringW::PXSTR * buff, WCHAR sep = WCHAR(',')) //throw(...)
+static inline double NextFloat(CStringW::PXSTR * buff, WCHAR sep = WCHAR(',')) //throw(...)
 {
     CStringW str;
 
