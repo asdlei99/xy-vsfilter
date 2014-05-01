@@ -30,9 +30,6 @@ public:
 	enum enc {ASCII, UTF8, LE16, BE16};
 
 private:
-	enc m_encoding, m_defaultencoding;
-	int m_offset;
-
 	unsigned char m_readbuffer[4096];
 	size_t m_bufferPos;
 	size_t m_bufferCount;
@@ -45,36 +42,20 @@ private:
 
 public:
 	CTextFile(enc e = ASCII);
+	using CStdioFile::Seek;
 
 	virtual bool Open(LPCTSTR lpszFileName);
 	virtual bool Save(LPCTSTR lpszFileName, enc e /*= ASCII*/);
 
-	void SetEncoding(enc e);
-	enc GetEncoding();
-	bool IsUnicode();
+	void SetEncoding(enc) { }
+	enc GetEncoding() { return UTF8; }
+	bool IsUnicode() { return true; }
 
-	// CFile
 	CString GetFilePath() const;
-
-	// CStdioFile
-
     ULONGLONG GetPosition() const;
-	ULONGLONG GetLength() const;
-	ULONGLONG Seek(LONGLONG lOff, UINT nFrom);
 
 	void WriteString(LPCWSTR lpsz/*CStringW str*/);
 	BOOL ReadString(CStringW& str);
 };
 
-class CWebTextFile : public CTextFile
-{
-	LONGLONG m_llMaxSize;
-	CString m_tempfn;
-
-public:
-    CWebTextFile(CTextFile::enc e = ASCII, LONGLONG llMaxSize = 1024 * 1024);
-
-	bool Open(LPCTSTR lpszFileName);
-	bool Save(LPCTSTR lpszFileName, enc e /*= ASCII*/);
-	void Close();
-};
+using CWebTextFile = CTextFile;
